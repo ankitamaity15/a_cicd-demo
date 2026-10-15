@@ -1,1 +1,13 @@
 
+name: Data Load
+
+on:
+  workflow_dispatch:
+
+jobs:
+  data-load:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Load Data
+        run: echo "Loading data into Snowflake"
