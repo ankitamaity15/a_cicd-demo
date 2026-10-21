@@ -10,12 +10,9 @@ jobs:
   terraform-apply:
     runs-on: ubuntu-latest
 
-    env:
-      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+    defaults:
+      run:
+        working-directory: terraform
 
     steps:
       - name: Checkout Repository
@@ -24,7 +21,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.8.5"
+          terraform_version: 1.8.5
 
       - name: Terraform Init
         run: terraform init
