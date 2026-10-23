@@ -1,5 +1,23 @@
-
 variable "role_name" {
-  description = "Snowflake Role Name"
-  type        = string
+  type = string
+}
+
+variable "comment" {
+  type    = string
+  default = null
+}
+
+variable "warehouse_name" {
+  type    = string
+  default = null
+}
+
+variable "parent_role" {
+  type    = string
+  default = null
+}
+
+variable "database_roles" {
+  type    = map(string)
+  default = {}
 }
