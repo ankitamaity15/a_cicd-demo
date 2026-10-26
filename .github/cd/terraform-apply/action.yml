@@ -68,4 +68,4 @@ runs:
 
       working-directory: terraform 
 
-      run: terraform output
+      run: terraform output 
