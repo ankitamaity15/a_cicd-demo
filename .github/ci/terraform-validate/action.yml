@@ -1,6 +1,6 @@
 name: Terraform Validate
 
-description: Validate Terraform configuration
+description: Validate Terraform code
 
 runs:
   using: composite
