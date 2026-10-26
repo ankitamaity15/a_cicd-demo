@@ -1,1 +1,19 @@
+name: Terraform Validate
 
+description: Validate Terraform configuration
+
+runs:
+  using: composite
+
+  steps:
+    - name: Terraform Init
+      shell: bash
+      run: terraform init -input=false
+
+    - name: Terraform Format Check
+      shell: bash
+      run: terraform fmt -check -recursive
+
+    - name: Terraform Validate
+      shell: bash
+      run: terraform validate
