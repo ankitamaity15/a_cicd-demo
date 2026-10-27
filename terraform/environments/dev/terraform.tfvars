@@ -1,7 +1,7 @@
-environment            = "dev" 
+environment = "dev"
 
-warehouse_size         = "XSMALL" 
-
-warehouse_auto_suspend = 60 
-
-data_retention_days    = 1 
+snowflake_account   = "THREEIGROUP"
+snowflake_user      = "cicd_demo_user"
+snowflake_password  = "eyJraWQiOiI3MTkwMjA0Nzc1MzAxMTgiLCJhbGciOiJFUzI1NiJ9.eyJwIjoiMTA5NzEzODUyMDU6MTA5NzEzODIwMjEiLCJpc3MiOiJTRjoyMDE5IiwiZXhwIjoxODAwNzc5NTE3fQ.QBT7SjG_Pg7HRmf6he-wIuPDgXnqMkddr4NmoGZTho3Xj8KMqzeyo-c3125VarndnBQNcOh69ftp9WHueGm8tQ"
+snowflake_role      = "cicd_demo_role"
+snowflake_warehouse = "cicd_demo_wh"
