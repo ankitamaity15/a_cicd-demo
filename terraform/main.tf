@@ -1,23 +1,37 @@
-module "demo_database" {
-  source = "./modules/medallion_database"
-
-  database_name = var.database_name
+locals {
+  env_upper = upper(var.environment)
+  prefix    = "${upper(var.project)}_${local.env_upper}" # e.g. TEST_CICD_DEMO_TEST
 }
 
+# Compute for this environment
 module "warehouse" {
   source = "./modules/warehouse"
 
-  warehouse_name = var.warehouse_name
+  name         = "${local.prefix}_WH"
+  size         = var.warehouse_size
+  auto_suspend = var.warehouse_auto_suspend
+  comment      = "Warehouse for ${local.prefix} environment"
 }
 
-module "analyst_role" {
-  source = "./modules/account_role"
+# Database with BRONZE / SILVER / GOLD managed access schemas and access roles
+module "demo_database" {
+  source = "./modules/medallion_database"
 
-  role_name = var.analyst_role_name
+  database_name       = local.prefix
+  data_retention_days = var.data_retention_days
+  schemas             = var.schemas
 }
 
+# Functional role: engineers read/write every layer
 module "engineer_role" {
   source = "./modules/account_role"
 
-  role_name = var.engineer_role_name
+  role_name = "${local.prefix}_ENGINEER"
+}
+
+# Functional role: analysts read GOLD only
+module "analyst_role" {
+  source = "./modules/account_role"
+
+  role_name = "${local.prefix}_ANALYST"
 }
