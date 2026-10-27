@@ -1,5 +1,5 @@
 environment = "dev"
-organization_name = "THREEIGROUP"
+organization_name = "A9365606582871"
 account_name   = "THREEIGROUP"
 snowflake_user      = "cicd_demo_user"
 snowflake_password  = "eyJraWQiOiI3MTkwMjA0Nzc1MzAxMTgiLCJhbGciOiJFUzI1NiJ9.eyJwIjoiMTA5NzEzODUyMDU6MTA5NzEzODIwMjEiLCJpc3MiOiJTRjoyMDE5IiwiZXhwIjoxODAwNzc5NTE3fQ.QBT7SjG_Pg7HRmf6he-wIuPDgXnqMkddr4NmoGZTho3Xj8KMqzeyo-c3125VarndnBQNcOh69ftp9WHueGm8tQ"
