@@ -1,4 +1,4 @@
-environment = "prod"
+environment = "dev"
 organization_name = "A9365606582871"
 account_name   = "THREEIGROUP"
 snowflake_user      = "cicd_demo_user"
