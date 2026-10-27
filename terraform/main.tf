@@ -10,6 +10,7 @@ module "warehouse" {
   name         = "${local.prefix}_WH"
   size         = var.warehouse_size
   auto_suspend = var.warehouse_auto_suspend
+  comment      = "Warehouse for ${local.prefix} environment"
 }
 
 # Database with BRONZE / SILVER / GOLD managed access schemas and access roles
