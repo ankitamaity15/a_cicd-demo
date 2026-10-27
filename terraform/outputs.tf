@@ -10,7 +10,7 @@ output "schemas" {
 
 output "warehouse_name" {
   description = "Warehouse created for this environment."
-  value       = module.warehouse.name
+  value       = module.warehouse.warehouse_name
 }
 
 output "account_roles" {
