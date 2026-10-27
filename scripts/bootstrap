@@ -1,1 +1,66 @@
+USE ROLE ACCOUNTADMIN;
 
+CREATE ROLE IF NOT EXISTS cicd_demo_role;
+
+GRANT CREATE DATABASE  ON ACCOUNT TO ROLE cicd_demo_role; 
+
+GRANT CREATE WAREHOUSE ON ACCOUNT TO ROLE cicd_demo_role; 
+
+GRANT CREATE ROLE ON ACCOUNT TO ROLE cicd_demo_role; 
+
+GRANT MANAGE GRANTS ON ACCOUNT TO ROLE cicd_demo_role; 
+
+GRANT ROLE cicd_demo_role TO ROLE SYSADMIN; 
+
+CREATE WAREHOUSE IF NOT EXISTS cicd_demo_wh
+  WAREHOUSE_SIZE = 'XSMALL' 
+  AUTO_SUSPEND = 60 
+  AUTO_RESUME = TRUE 
+  INITIALLY_SUSPENDED = TRUE;
+
+  GRANT USAGE ON WAREHOUSE cicd_demo_wh TO ROLE cicd_demo_role; 
+
+  CREATE USER IF NOT EXISTS cicd_demo_user
+
+  TYPE = SERVICE 
+
+  DEFAULT_ROLE = cicd_demo_role 
+
+  DEFAULT_WAREHOUSE = cicd_demo_wh;
+   
+
+GRANT ROLE cicd_demo_role TO USER cicd_demo_user; 
+
+CREATE NETWORK POLICY IF NOT EXISTS cicd_DEMO_NETWORK_POLICY 
+
+  ALLOWED_IP_LIST = ('0.0.0.0/0');
+
+ALTER USER cicd_demo_user 
+
+  ADD PROGRAMMATIC ACCESS TOKEN cicd_demo_token
+
+  ROLE_RESTRICTION = 'cicd_demo_role' 
+
+  DAYS_TO_EXPIRY = 30 
+
+  COMMENT = 'GitHub Actions Terraform demo'; 
+
+  SELECT CURRENT_ORGANIZATION_NAME() AS SNOWFLAKE_ORGANIZATION_NAME, 
+
+       CURRENT_ACCOUNT_NAME()      AS SNOWFLAKE_ACCOUNT_NAME;
+
+
+
+CREATE DATABASE IF NOT EXISTS cicd_demo_test_db;
+CREATE SCHEMA IF NOT EXISTS cicd_demo_test_schema;
+
+
+
+
+
+
+
+
+
+
+  
