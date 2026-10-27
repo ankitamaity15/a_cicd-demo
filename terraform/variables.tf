@@ -34,8 +34,9 @@ variable "warehouse_auto_suspend" {
 variable "organization_name" {
   type = string
 }
-variable "snowflake_account" {
-  type = string
+variable "account_name" {
+  description = "Snowflake account name"
+  type        = string
 }
 
 variable "snowflake_user" {
