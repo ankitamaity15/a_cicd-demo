@@ -5,6 +5,16 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
 
 jobs:
   terraform-apply:
@@ -14,6 +24,15 @@ jobs:
       run:
         working-directory: terraform
 
+    env:
+      TF_INPUT: "false"
+      SNOWFLAKE_ORGANIZATION_NAME: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
+      SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -22,11 +41,12 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.6.0
+
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -input=false -backend-config="path=../tfstate/${{ inputs.environment }}_cicd_demo-${{ inputs.environment }}.tfstate"
 
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -input=false -var='environment=${{ inputs.environment }}' -var-file=environments/${{ inputs.environment }}/terraform.tfvars -auto-approve
