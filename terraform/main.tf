@@ -33,7 +33,7 @@ module "engineer_role" {
 # Functional role: analysts read GOLD only
 
 module "analyst_role" {
-  source = "./modules/analyst_role"
+  source = "./modules/account_role"
 
   role_name = "${local.prefix}_ANALYST"
 }
