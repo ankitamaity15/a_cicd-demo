@@ -8,9 +8,9 @@
 
 #   SNOWFLAKE_PASSWORD (the Snowflake programmatic access token) 
 provider "snowflake" {
-  snowflake_account = var.SNOWFLAKE_ACCOUNT
-  snowflake_user = var.SNOWFLAKE_USER
-  snowflake_password = var.SNOWFLAKE_PASSWORD
-  snowflake_role = var.SNOWFLAKE_ROLE 
-  snowflake_warehause = var.SNOWFLAKE_WAREHOUSE
+  account = var.SNOWFLAKE_ACCOUNT
+  username = var.SNOWFLAKE_USER
+  password = var.SNOWFLAKE_PASSWORD
+  role = var.SNOWFLAKE_ROLE 
+  warehause = var.SNOWFLAKE_WAREHOUSE
 }
