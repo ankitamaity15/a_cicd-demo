@@ -8,3 +8,9 @@ variable "data_retention_days" {
   type        = number
   default     = 1
 }
+
+variable "schemas" {
+  description = "Medallion layers to create as managed access schemas."
+  type        = list(string)
+  default     = ["BRONZE", "SILVER", "GOLD"]
+}
