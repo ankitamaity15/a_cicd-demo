@@ -18,7 +18,6 @@ module "demo_database" {
   source = "./modules/medallion_database"
 
   database_name       = local.prefix
-  schemas             = var.schemas
   data_retention_days = var.data_retention_days
 }
 
