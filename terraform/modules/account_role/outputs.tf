@@ -1,4 +1,4 @@
-output "account_roles" {
-  description = "Functional roles created for this environment."
-  value       = [module.engineer_role.role_name, module.analyst_role.role_name]
+output "role_name" {
+  description = "Name of the Snowflake account role."
+  value       = snowflake_account_role.this.name
 }
