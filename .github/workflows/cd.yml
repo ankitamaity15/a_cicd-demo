@@ -26,6 +26,7 @@ jobs:
 
     env:
       TF_INPUT: "false"
+      ENVIRONMENT: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'dev' }}
       SNOWFLAKE_ORGANIZATION_NAME: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
       SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
@@ -42,11 +43,14 @@ jobs:
         with:
           terraform_version: 1.6.0
 
+      - name: Prepare state directory
+        run: mkdir -p ../tfstate
+
       - name: Terraform Init
-        run: terraform init -input=false -backend-config="path=../tfstate/${{ inputs.environment }}_cicd_demo-${{ inputs.environment }}.tfstate"
+        run: terraform init -input=false -backend-config="path=../tfstate/${{ env.ENVIRONMENT }}_cicd_demo-${{ env.ENVIRONMENT }}.tfstate"
 
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Apply
-        run: terraform apply -input=false -var='environment=${{ inputs.environment }}' -var-file=environments/${{ inputs.environment }}/terraform.tfvars -auto-approve
+        run: terraform apply -input=false -var="environment=${{ env.ENVIRONMENT }}" -var-file="environments/${{ env.ENVIRONMENT }}/terraform.tfvars" -auto-approve
