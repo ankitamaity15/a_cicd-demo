@@ -10,27 +10,27 @@ module "warehouse" {
   name         = "${local.prefix}_WH"
   size         = var.warehouse_size
   auto_suspend = var.warehouse_auto_suspend
-  comment      = "Warehouse for ${local.prefix} environment"
+  comment      = "Compute for ${local.prefix} - managed by Terraform"
 }
 
 # Database with BRONZE / SILVER / GOLD managed access schemas and access roles
-# terraform/main.tf
 module "demo_database" {
   source = "./modules/medallion_database"
 
   database_name       = local.prefix
+  schemas             = var.schemas
   data_retention_days = var.data_retention_days
+  comment             = "CI/CD demo database (${var.environment}) - managed by Terraform"
 }
 
 # Functional role: engineers read/write every layer
 module "engineer_role" {
   source = "./modules/account_role"
 
-  role_name           = "${local.prefix}_ENGINEER"
+  role_name = "${local.prefix}_ENGINEER"
 }
 
 # Functional role: analysts read GOLD only
-
 module "analyst_role" {
   source = "./modules/account_role"
 
