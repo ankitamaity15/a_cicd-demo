@@ -1,6 +1,6 @@
 locals {
   env_upper = upper(var.environment)
-  prefix    = "${upper(var.project)}_${local.env_upper}" # e.g. TEST_CICD_DEMO_TEST
+  prefix    = "${upper(var.project)}_${local.test_upper}" # e.g. TEST_CICD_DEMO_TEST
 }
 
 # Compute for this environment
