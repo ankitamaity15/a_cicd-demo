@@ -31,7 +31,9 @@ variable "warehouse_auto_suspend" {
   type        = number
   default     = 60
 }
-
+variable "organization_name" {
+  type = string
+}
 variable "snowflake_account" {
   type = string
 }
