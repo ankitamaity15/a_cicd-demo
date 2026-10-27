@@ -44,4 +44,3 @@ module "analyst_role" {
   warehouse_name = module.warehouse.name
   parent_role    = "SYSADMIN"
 }
-
