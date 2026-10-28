@@ -1,6 +1,1 @@
-environment = "prod"
-organization_name = "A9365606582871"
-account_name   = "THREEIGROUP"
-snowflake_user      = "cicd_demo_user"
-snowflake_role      = "cicd_demo_role"
-snowflake_warehouse = "cicd_demo_wh"
+
