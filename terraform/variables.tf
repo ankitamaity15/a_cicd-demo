@@ -31,29 +31,7 @@ variable "warehouse_auto_suspend" {
   type        = number
   default     = 60
 }
-variable "organization_name" {
-  type = string
-}
-variable "account_name" {
-  description = "Snowflake account name"
-  type        = string
-}
 
-variable "snowflake_user" {
-  type = string
-}
-
-variable "snowflake_password" {
-  type = string
-}
-
-variable "snowflake_role" {
-  type = string
-}
-
-variable "snowflake_warehouse" {
-  type = string
-}
 
 variable "data_retention_days" {
   description = "Time Travel retention for the database, in days."
