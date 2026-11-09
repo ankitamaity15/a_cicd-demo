@@ -55,6 +55,10 @@ jobs:
           echo "USER SET: ${{ secrets.SNOWFLAKE_USER != '' }}"
           echo "ROLE SET: ${{ secrets.SNOWFLAKE_ROLE != '' }}"
           echo "WAREHOUSE SET: ${{ secrets.SNOWFLAKE_WAREHOUSE != '' }}"
+      - name: Debug Secrets
+        run: |
+          echo "ORG secret present: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME != '' }}"
+          echo "ACCOUNT secret present: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME != '' }}"
 
       - name: Verify Environment Variables
         run: |
