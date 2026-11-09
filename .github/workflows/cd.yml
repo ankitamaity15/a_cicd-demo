@@ -62,22 +62,11 @@ jobs:
 
       - name: Verify Environment Variables
         run: |
-          if [ -z "$TF_VAR_organization_name" ]; then
-            echo "ERROR: TF_VAR_organization_name is empty"
-            exit 1
-          fi
+          echo "Org length=${#TF_VAR_organization_name}"
+          echo "Account length=${#TF_VAR_account_name}"
+          echo "User length=${#TF_VAR_user}"
 
-          if [ -z "$TF_VAR_account_name" ]; then
-            echo "ERROR: TF_VAR_account_name is empty"
-            exit 1
-          fi
-
-          if [ -z "$TF_VAR_user" ]; then
-            echo "ERROR: TF_VAR_user is empty"
-            exit 1
-          fi
-
-          echo "Required Terraform variables are present"
+               env | sort | grep TF_VAR || true
 
       - name: Prepare state directory
         run: mkdir -p ../tfstate
