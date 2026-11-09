@@ -2,20 +2,12 @@ name: Terraform Destroy
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: Environment to destroy
-        required: true
-        default: dev
-        type: choice
-        options:
-          - dev
-          - test
-          - prod
 
 jobs:
-  destroy:
+  terraform-destroy:
     runs-on: ubuntu-latest
+
+    environment: dev
 
     defaults:
       run:
@@ -23,12 +15,15 @@ jobs:
 
     env:
       TF_INPUT: "false"
-      SNOWFLAKE_ORGANIZATION_NAME: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
-      SNOWFLAKE_ACCOUNT_NAME: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
-      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+
+      TF_VAR_environment: dev
+
+      TF_VAR_organization_name: ${{ secrets.SNOWFLAKE_ORGANIZATION_NAME }}
+      TF_VAR_account_name: ${{ secrets.SNOWFLAKE_ACCOUNT_NAME }}
+      TF_VAR_user: ${{ secrets.SNOWFLAKE_USER }}
+      TF_VAR_password: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      TF_VAR_role: ${{ secrets.SNOWFLAKE_ROLE }}
+      TF_VAR_warehouse: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
 
     steps:
       - name: Checkout Repository
@@ -40,7 +35,15 @@ jobs:
           terraform_version: 1.6.0
 
       - name: Terraform Init
-        run: terraform init -input=false -backend-config="path=../tfstate/${{ inputs.environment }}_cicd_demo-${{ inputs.environment }}.tfstate"
+        run: |
+          terraform init \
+            -input=false \
+            -backend-config="path=../tfstate/dev_cicd_demo-dev.tfstate"
 
       - name: Terraform Destroy
-        run: terraform destroy -input=false -var='environment=${{ inputs.environment }}' -var-file=environments/${{ inputs.environment }}/terraform.tfvars -auto-approve
+        run: |
+          terraform destroy \
+            -input=false \
+            -var="environment=dev" \
+            -var-file="environments/dev/terraform.tfvars" \
+            -auto-approve
